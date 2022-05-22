@@ -3,6 +3,8 @@ Projeto Integrador II - Univesp - Polo Santo André - Grupo 102
 
 Continuidade de https://github.com/hugobor/projeto-integrador-aves
 
+[Relatório Parcial](https://docs.google.com/document/d/1M4Nki4ytIAsv0m_NU1hezAc1a96qPrabzQhn2Iyu0ew/edit?usp=sharing)
+
 # Projeto de Registro de Aves no Parque
 
 + Adicionar aqui as coisas do projeto do primeiro semestre
