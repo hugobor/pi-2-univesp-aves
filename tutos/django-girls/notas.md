@@ -78,8 +78,6 @@ Salva os registros de Post na tabela `blog_post`
 Mágia impressionante 
 
 
-
-
 # Notas
 
 Um site pode ter várias apps.

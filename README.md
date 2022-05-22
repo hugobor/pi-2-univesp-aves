@@ -5,6 +5,19 @@ Continuidade de https://github.com/hugobor/projeto-integrador-aves
 
 [Relatório Parcial](https://docs.google.com/document/d/1M4Nki4ytIAsv0m_NU1hezAc1a96qPrabzQhn2Iyu0ew/edit?usp=sharing)
 
+# Para iniciar
+
+```bash
+$ virtualenv myvenv
+$ source myvenv/bin/activate
+$ pip install -r requirements.text
+$ ./manage.py makemigrations blog
+$ ./manage.py migrate blog
+$ ./manage.py migrate
+```
+
+Acho que é isso...
+
 # Projeto de Registro de Aves no Parque
 
 + Adicionar aqui as coisas do projeto do primeiro semestre
@@ -20,8 +33,9 @@ Continuidade de https://github.com/hugobor/projeto-integrador-aves
     +  Ver esse coiso. Pode ser usado como justificativa no relatório
   + [Referência para tipos em Models](https://docs.djangoproject.com/en/3.2/ref/models/fields/#field-types)
     + [Tipos no Django 4](https://docs.djangoproject.com/en/4.0/ref/models/fields/#field-types)
-    + [Django Admin](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/)
-    + [Views](https://docs.djangoproject.com/en/4.0/topics/http/views/)
+  + [Django Admin](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/)
+  + [Views](https://docs.djangoproject.com/en/4.0/topics/http/views/)
+  + [Arquivos estáticos](https://docs.djangoproject.com/en/4.0/howto/static-files/)
   + [Django com Bootstrap](https://dev.to/thalesbruno/django-projeto-generico-com-bootstrap-3d86)
 + [Human Centered Design](https://drive.google.com/file/d/1tn2pg6GBNODpE4K-iL70vJPG_gS6eeof/preview)
 + [Tutorial da Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-django-and-set-up-a-development-environment-on-ubuntu-20-04)
@@ -32,7 +46,7 @@ Continuidade de https://github.com/hugobor/projeto-integrador-aves
 
 + Django
 + Heroku
-+ PostgreSQL  
++ PostgreSQL
 + Jinja
 + Django ORM
 + Bootstrap
