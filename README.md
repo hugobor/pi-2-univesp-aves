@@ -20,6 +20,7 @@ Continuidade de https://github.com/hugobor/projeto-integrador-aves
     +  Ver esse coiso. Pode ser usado como justificativa no relatório
   + [Referência para tipos em Models](https://docs.djangoproject.com/en/3.2/ref/models/fields/#field-types)
     + [Tipos no Django 4](https://docs.djangoproject.com/en/4.0/ref/models/fields/#field-types)
+    + [Django Admin](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/)
   + [Django com Bootstrap](https://dev.to/thalesbruno/django-projeto-generico-com-bootstrap-3d86)
 + [Human Centered Design](https://drive.google.com/file/d/1tn2pg6GBNODpE4K-iL70vJPG_gS6eeof/preview)
 + [Tutorial da Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-django-and-set-up-a-development-environment-on-ubuntu-20-04)
