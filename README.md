@@ -6,6 +6,9 @@ Continuidade de https://github.com/hugobor/projeto-integrador-aves
 # Projeto de Registro de Aves no Parque
 
 + Adicionar aqui as coisas do projeto do primeiro semestre
++ Lendo o tutorial do Django Girls. Vou adicionar aqui depois com notas.
++ Fazer o tutorial do sistema de votação do site oficial do Django depois
++ Tenho que colocar os coisos no relatório parcial
 
 # Bibliografia/Tutoriais
 
@@ -13,9 +16,12 @@ Continuidade de https://github.com/hugobor/projeto-integrador-aves
   + [Django Girls](https://tutorial.djangogirls.org/en/)
   + [Django vs Flask](https://testdriven.io/blog/django-vs-flask/)
     +  Ver esse coiso. Pode ser usado como justificativa no relatório
+  + [Referência para tipos em Models](https://docs.djangoproject.com/en/3.2/ref/models/fields/#field-types)
+    + [Tipos no Django 4](https://docs.djangoproject.com/en/4.0/ref/models/fields/#field-types)
   + [Django com Bootstrap](https://dev.to/thalesbruno/django-projeto-generico-com-bootstrap-3d86)
 + [Human Centered Design](https://drive.google.com/file/d/1tn2pg6GBNODpE4K-iL70vJPG_gS6eeof/preview)
 + [Tutorial da Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-django-and-set-up-a-development-environment-on-ubuntu-20-04)
+
 
 # Coisas
 
@@ -26,6 +32,11 @@ Continuidade de https://github.com/hugobor/projeto-integrador-aves
 + Django ORM
 + Bootstrap
 + etc... etc.. etc...
+
+Tinha uma api de mapas livre que podia usar no lugar de pagar pelo Google Maps.
+Dava para usar ela para colocar o lugar de onde foi tirada a foto dos pássaro.
+Isso ia cumprir o requisito de usar api e núvem.
+Ver sobre ela dispois
 
 # Arrumar
 
