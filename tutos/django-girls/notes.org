@@ -1,0 +1,54 @@
+* Django Girls
+
+#+begin_src
+  $ virtualenv myvenv
+  $ source myvenv/bin/activate
+  $ pip install -U pip
+#+end_src
+
++ arquivo requirements.txt
+
+#+begin_src
+  Django~=3.2.10
+#+end_src
+
+#+begin_src
+  $ pip install -r requirements.text
+#+end_src
+
+#+begin_src
+  $ django-admin startproject mysite .
+#+end_src
+
+
+* Arquivi setting.py
+
+#+begin_src
+  LANGUAGE_CODE = 'pt-br'
+  TIME_ZONE = 'America/Sao_Paulo'
+  STATIC_ROOT = BASE_DIR / 'static'
+#+end_src
+
+#+begin_src
+  $ ./manage.py migrate
+  $ ./manage.py runserver
+#+end_src
+
+
+#+begin_src
+#+end_src
+
+#+begin_src
+  $ ./manage.py startapp blog
+#+end_src
+
+Colocar app blog em =INSTALLED_APPS= em =settings.py=.
+
+
+* Notas
+
+Um site pode ter várias apps.
+
+Model = Objeto ORM. Armazenado no banco de dados. manage.py 
+
++ Criando o Model de posts para o blog.
