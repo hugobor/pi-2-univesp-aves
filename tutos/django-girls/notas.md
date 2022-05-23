@@ -77,6 +77,36 @@ Salva os registros de Post na tabela `blog_post`
 
 Mágia impressionante 
 
++ Adicionar url em `urls.py` no site e no app.
++ Adicionar render do template no coiso da url do app
+
+# QuerySet
+
+Console Django:
+
+```bash
+$ ./manage.py shell
+```
+
+Mesma coisa do shell Python, mas com as coisas do Django junto...
+
+```python
+>>> from blog.models import Post
+>>> Post.objects.all()
+>>> from django.contrib.auth.models import User
+>>> User.objects.all()
+>>> me = User.objects.get( username = 'hugo' )
+>>> Post.objects.create( author = me, title = 'Biloba', text = "Somos todos felizes!" )
+>>> 'etc etc etc'
+>>> Post.objects.filter( author = me )
+>>> Post.objects.filter( text__contains = 'amogus' )
+>>> from django.utils import timezone
+>>> Post.objects.filter(published_date__lte=timezone.now())
+>>> Post.objects.all().order_by( 'title' )
+```
+
+
+imprime variáveis com {{ }}
 
 # Notas
 

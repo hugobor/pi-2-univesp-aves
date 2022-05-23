@@ -25,11 +25,27 @@
 	  </li>
 	</ul>
 
-	<img src="{% static "creature.png" %}" alt="Criatura e Amogus se encontram"
+	<img src="{% static "creature.png" %}" alt="Criatura e Amogus se encontram">
 	
 
       </article>
-      
+
+      <article>
+	<h3>Posts!!!</h3>
+	<p>{{ posts }}</p>
+
+	<h3>Lista</h3>
+	
+	{% for post in posts %}
+	<article>
+	  <h4>{{ post.title }}</h4>
+	  <time>Data de publicação: {{ post.published_date }}</time>
+	  <p>{{ post.text|linebreaksbr }}</p>
+	</article>
+	{% endfor %}
+	
+      </article>
+
     </main>
   </body>
 </html>
