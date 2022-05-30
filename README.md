@@ -52,6 +52,8 @@ Acho que é isso...
 + Django ORM
 + Bootstrap
 + etc... etc.. etc...
++ [Escolher cores](https://www.webfx.com/web-design/color-picker/)
++ [Google Fonts](https://fonts.google.com/) (para escolher fontes)
 
 Tinha uma api de mapas livre que podia usar no lugar de pagar pelo Google Maps.
 Dava para usar ela para colocar o lugar de onde foi tirada a foto dos pássaro.

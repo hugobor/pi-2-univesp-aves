@@ -108,6 +108,21 @@ Mesma coisa do shell Python, mas com as coisas do Django junto...
 
 imprime variáveis com {{ }}
 
+Arquivos estáticos na pasta `static`.
+
+https://www.webfx.com/web-design/color-picker/
+
+CSS selectors.
+
+Para usar arquivos estáticos:
+
+```
+{% load static %}
+```
+
+No arquivo de template
+
+
 # Notas
 
 Um site pode ter várias apps.
