@@ -122,6 +122,26 @@ Para usar arquivos estáticos:
 
 No arquivo de template
 
+Herança de templates funciona igual ao Jinja.
+
+```
+{% block blop %}
+{% endblock %}
+
+{% extends 'blup/blap' %} #pesquisa na pasta templates
+
+{% block title %}Título porco{% endblock %}
+```
+
+Url nos templates
+```
+{% url 'blop_url' pk=post.pk %}
+```
+
+pk é o campo da chave primária dos models.
+
+Use `get_object_or_404` para pegar modelos que podem não existir.
+Parâmetros de url aparecem na função da view.
 
 # Notas
 

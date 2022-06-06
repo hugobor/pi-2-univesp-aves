@@ -30,7 +30,7 @@
   
   {% for post in posts %}
   <article class="post">
-    <h4>{{ post.title }}</h4>
+    <h4><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
     <time>Data de publicação: {{ post.published_date }}</time>
     <p>{{ post.text|linebreaksbr }}</p>
   </article>
