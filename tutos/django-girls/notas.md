@@ -56,6 +56,7 @@ from django.contrib import admin
 from .models import Post
 
 admin.site.register(Post)
+
 ```
 
 Hora do `runserver`
@@ -142,6 +143,36 @@ pk é o campo da chave primária dos models.
 
 Use `get_object_or_404` para pegar modelos que podem não existir.
 Parâmetros de url aparecem na função da view.
+
+```
+./manage.py collectstatic
+```
+
+forms
+```
+from django import forms
+
+class BlopForm( forms.ModelForm ):
+    class Meta:
+        model = Post
+        fields = ( 'title', 'text', )
+		
+# na view
+from .forms import PostForm
+def post_new( request ):
+    form = PostForm()
+    return render( request, 'blog/post_edit.html', { 'form': form } )		
+		
+```
+
+Suporte a SVG
+
+```
+import mimetypes
+
+mimetypes.add_type("image/svg+xml", ".svg", True)
+mimetypes.add_type("image/svg+xml", ".svgz", True)
+```
 
 # Notas
 
