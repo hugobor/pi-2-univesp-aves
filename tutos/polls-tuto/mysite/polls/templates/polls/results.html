@@ -1,0 +1,11 @@
+{% extends 'polls/base.html' %}
+
+{% block main_content %}
+<h1>{{ question.question_text }}</h1>
+{{ question.choice_set.all|dictsort:"-votes" }}
+<ul>
+{% for choice in question.choice_set.all|dictsortreversed:'votes' %}
+<li>{{ choice.choice_text }} &mdash; {{ choice.votes }} voto{{ choice.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
