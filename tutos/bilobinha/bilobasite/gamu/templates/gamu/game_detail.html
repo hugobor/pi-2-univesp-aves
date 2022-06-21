@@ -1,0 +1,47 @@
+{% extends 'gamu/base.html' %}
+{% block title %}{{ game.nome }}{% endblock %}
+
+{% block main_content %}
+<article>
+  <h1>{{ game.nome }}</h1>
+  <p><strong>Lançamento:</strong> <time>{{ game.ano }}</time></p>
+  <p><strong>Console:</strong> {{ game.console.nome }}</p>
+
+  {% if game.imagem_capa %}
+  <img src="{{ game.imagem_capa.url }}" alt="Imagem de capa para {{ game.nome }}." style="width: 300px; height: auto">
+  {% endif %}
+
+  {% if game.descricao.strip != '' %}
+  <p>{{ game.descricao | linebreaks }}</p>
+  {% endif %}
+
+  {% for descr in game.descricaoextra_set.all %}
+  <section>
+    <h3>{{ descr.titulo }}</h3>
+    <p>{{ descr.texto }}</p>
+  </section>
+  {% endfor %}
+
+  {% if game.screenshot_set.all %}
+  <section>
+    <h3>Screenshots</h3>
+    
+    {% for scrsht in game.screenshot_set.all %}
+    <section>
+      <figure>
+	<img src="{{ scrsht.imagem.url }}" alt="Screenshot número {{ forloop.counter }} do jogo {{ game.nome }}.">
+	{% if scrsht.legenda %}
+	<figcaption>{{ scrsht.legenda }}</figcaption>
+	{% endif %}
+      </figure>
+    </section>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  <p>
+    <a href="{% url 'gamu:list' %}">Todos os Jogos</a>
+  </p>
+
+  
+{% endblock %}

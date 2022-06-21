@@ -8,4 +8,6 @@
 <li>{{ choice.choice_text }} &mdash; {{ choice.votes }} voto{{ choice.votes|pluralize }}</li>
 {% endfor %}
 </ul>
+
+<a href="{% url 'polls:detail' question.id %}">Votar de novo?</a>
 {% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'gamu/base.html' %}
+
+{% block title %}Lista de Jogos{% endblock %}
+
+{% block main_content %}
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Lançamento</th>
+	  <th>Console</th>
+	  <th>Imagem</th>
+	  <th></th> <!-- editar -->
+	  <th></th> <!-- excluir -->	  
+	</tr>
+      </thead>
+      <tbody>
+          {% for game in game_list %}
+	  <tr>
+	    <td><a href="{% url 'gamu:detail' game.pk %}">{{ game.nome }}</a></td>
+	    <td>{{ game.ano }}</td>
+	    <td>{{ game.console.nome }}</td>
+	    <td>
+	      {% if game.imagem_capa %}
+	      <img src="{{ game.imagem_capa.url }}" alt="Imagem de capa de {{ game.nome }}." style="width: 100px; height: auto">
+	      {% endif %}
+	    </td>
+
+	    <td><a href="#">Editar</a></td>
+	    <td><a href="#">Excluir</a></td>	    
+	  </tr>
+	  {% endfor %}
+      </tbody>
+    <table>
+
+<p><a href="{% url 'gamu:create' %}">Novo</a></p>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends 'movies/base.html' %}
+
+{% for gamu in gamu_list %}
+<img src="{{ gamu.capa.url }}">
+{% endfor %}

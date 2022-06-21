@@ -1,0 +1,36 @@
+{% extends 'movies/base.html' %}
+
+{% block main_content %}
+<div class="container d-flex mt-5" style="width: 70%">
+  <div class="col">
+    <h1 class="text-center">Meus Filmes</h1>
+    <table class="table table-striped mt-5">
+      <thead>
+	<tr>
+	  <th class="text-center" scope="col">Título</th>
+	  <th class="text-center" scope="col">Ano</th>	  
+	  <th class="text-center" scope="col">Duração</th>	  
+	  <th class="text-center" scope="col">Nota</th>	  
+	  <th class="text-center" scope="col">Genero</th>
+	  <th></th>
+	  <th></th>	  
+	</tr>
+      </thead>
+      {% for film in film_list %}
+      <tr>
+	<td class="ml-5"><a href="{% url 'movies:detail' film.id %}">{{ film.title }}</a></td>
+	<td class="text-center">{{ film.year }}</td>
+	<td class="text-center">{{ film.length }}</td>
+	<td class="text-center">{{ film.score|floatformat:2 }}</td>
+	<td class="text-center">{{ film.genre.name }}</td>
+	<td class="text-center"><a href="{% url 'movies:update' film.id %}">Atualizar</td>
+	<td class="text-center"><a href="{% url 'movies:delete' film.id %}">Excluir</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <div class="d-flex justify-content-center">
+      <a href="{% url 'movies:create' %}" class="d-block btn btn-primary btn-lg my-5">Novo</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
