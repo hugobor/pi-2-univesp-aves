@@ -1,0 +1,20 @@
+{% extends 'aves/base.html' %}
+
+{% load bootstrap5 %}
+
+{% block title %}
+Nova Ave
+{% endblock %}
+
+{% block main_content %}
+<form method="POST" class="form" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  {% bootstrap_form form %}
+  {% buttons %}
+  <button type="submit" class="btn btn-primary">
+    Novo
+  </button>
+  {% endbuttons %}
+</form>
+{% endblock %}

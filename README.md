@@ -44,6 +44,7 @@ Acho que é isso...
 + [Crud com class based views](https://towardsdatascience.com/build-a-django-crud-app-by-using-class-based-views-12bc69d36ab6)
 + [Deloy de Aplicativo em Django e PostgreSql no Azure](https://docs.microsoft.com/pt-br/azure/app-service/tutorial-python-postgresql-app?tabs=flask%2Cwindows%2Cazure-portal%2Cterminal-bash%2Cazure-portal-access%2Cvscode-aztools-deploy%2Cdeploy-instructions-azportal%2Cdeploy-instructions--zip-azcli%2Cdeploy-instructions-curl-bash)
 + [Hospedar arquivos de mídia no Azure](https://davidsantiago.fr/django-using-azure-blob-storage-to-handle-static-media-assets-from-scratch/)
++ [Arquivos .env](https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f)
 
 
 ## Postgres
