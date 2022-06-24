@@ -10,9 +10,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSetView, NamedFormsetsMixin
 
-def hello( request ):
-    return render( request, 'aves/hello.html' )
-
 
 class AveView( View ):
     """View de aves. Para não ter que por o Model em todas as views normais."""
@@ -28,4 +25,20 @@ class AveCreateView( NamedFormsetsMixin, SuccessMessageMixin, AveView, CreateWit
     #template='ave/ave_form.html'
     success_message = "Ave %(nome)s foi inclúida com sucesso!"
     success_url = ""
-    fields = '__all__'
+    fields = (
+        'nome_cientifico',
+        'autor',
+        'nome_popular',
+        'nome_ingles',
+        'familia',
+        'imagem_capa',
+        'estado_iucn_sp',
+        'estado_iucn_int',
+        'frequencia_ocorrencia',
+        'abundancia_relativa',
+        'info',
+    )
+
+        
+               
+
