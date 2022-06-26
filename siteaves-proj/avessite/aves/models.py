@@ -1,10 +1,15 @@
 from django.db import models
 
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
 
 _BigCharField = 2048 #para não ter que configurar o tamanho de tudo
 
 
 class Ave( models.Model ):
+    """Modelo de Aves."""
+    
     nome_cientifico = models.CharField( 'nome científico',
                                         max_length = _BigCharField,
                                         unique = True )
@@ -31,9 +36,10 @@ class Ave( models.Model ):
     frequencia_ocorrencia = models.IntegerField( 'frequência de ocorrência',
                                                  null = True,
                                                  blank = True )
-    abundancia_relativa = models.IntegerField( 'abundância relativa',
-                                               null = True,
-                                               blank = True)    
+    abundancia_relativa = models.CharField( 'abundância relativa',
+                                            max_length = 2,
+                                            null = True,
+                                            blank = True )    
     
     ESTADOS_CONSERVACAO = (
         ( 'LC', 'Pouco Preocupante' ),
@@ -102,12 +108,26 @@ class Ave( models.Model ):
             spli[ 0 ] = spli[ 0 ][ :1 ].title() + '.'
             return ' '.join( spli )
 
+    
 
     class Meta:
         ordering = [ 'nome_cientifico' ]
 
 
+
+@receiver( pre_save, sender = Ave )
+def create_ave( sender, instance, *args, **kwargs ):
+    """Arruma os campos antes de salvar."""
+    instance.nome_cientifico = instance.nome_cientifico.capitalize()
+
+
+    
+        
 class InfoExtra( models.Model ):
+    """Capos extras com informações de texto de aves.
+    Exemplo: Alimentação, reprodução, sub-espécies, habitos...
+    Modelo Ave tem um campo de informações gerais."""
+    
     ave = models.ForeignKey( Ave, on_delete = models.CASCADE )
     titulo = models.CharField( 'título', max_length = _BigCharField )
     texto = models.TextField()
@@ -121,6 +141,9 @@ class InfoExtra( models.Model ):
 
 
 class FotoAve( models.Model ):
+    """Fotos extras para as aves.
+    Modelo Ave tem um campo para imagem de capa."""
+    
     ave = models.ForeignKey( Ave, on_delete = models.CASCADE )
     imagem = models.ImageField()
     leganda = models.CharField( max_length = _BigCharField, blank = True )
@@ -133,7 +156,37 @@ class FotoAve( models.Model ):
         verbose_name_plural = "fotos de aves"
 
         
+
+class ClassifiExtra( models.Model ):
+    """Campos extras para classificação de taxonomia."""
+    reino = models.CharField( max_length = _BigCharField,
+                              blank = True,
+                              null = True )
+    filo = models.CharField( max_length = _BigCharField,
+                                    blank = True,
+                                    null = True )
+    classe = models.CharField( max_length = _BigCharField )
+
+    class Meta:
+        ordering = [ 'classe' ]
+        verbose_name = 'classificação extra'
+        verbose_name_plural = 'classificações estras'
+
+    def __str__( self ):
+        def nod( s ):
+            """Name or dash."""
+            return s if s != '' else '---'
+        
+        return f"Classe: {nod(self.classe)}; Filo: {nod(self.filo)}; Reino: {nod(self.reino)}"
+
+        
 class Ordem( models.Model ):
+    classifiextra = models.ForeignKey( ClassifiExtra,
+                                       verbose_name = 'classificação extra',
+                                       null = True,
+                                       blank = True,
+                                       on_delete = models.SET_NULL )
+    
     nome = models.CharField( max_length = _BigCharField, unique = True )
 
     class Meta:
@@ -146,7 +199,9 @@ class Ordem( models.Model ):
 
 class Familia( models.Model ):
     ordem = models.ForeignKey( Ordem, on_delete = models.CASCADE )
+    
     nome = models.CharField( max_length = _BigCharField, unique = True )
+    autor = models.CharField( max_length = _BigCharField, null = True, blank = True )
 
     class Meta:
         verbose_name = 'família'

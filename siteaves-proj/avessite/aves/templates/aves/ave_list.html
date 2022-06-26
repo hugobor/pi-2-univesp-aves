@@ -34,7 +34,7 @@
 	{% for ave in ave_list %}
 	<tr class="ave-row">
 	  <td>{{ ave.nome_cientifico | default:'&mdash;' }}</td>
-	  <td>{{ ave.ordem.nome | default:'&mdash;' }}</td>
+	  <td>{{ ave.familia.ordem.nome | default:'&mdash;' }}</td>
 	  <td>{{ ave.familia.nome | default:'&mdash;'}}</td>
 	  <td>{{ ave.nome_popular | default:'&mdash;' }}</td>
 	  <td class="op-btn">
