@@ -6,6 +6,22 @@ from django.dispatch import receiver
 
 _BigCharField = 2048 #para não ter que configurar o tamanho de tudo
 
+def pick_val_in_choice( choice_tpl, choice_val ):
+    """Gambiara para pegar valor em lista de tupla de choice."""
+    choice_val = choice_val.strip().casefold()
+    for key, val in choice_tpl:
+        if key.casefold() == choice_val:
+            return val
+
+    return None
+
+def choice_from_display_name( choice_tpl, search_display ):
+    """Gambiarra para pegar as escolhas pelo nome de display"""
+    search_display = search_display.strip().casefold()
+    rev = [ ( display_name.strip().casefold(), choice )
+            for choice, display_name
+            in choice_tpl ]
+    return pick_val_in_choice( rev, search_display )
 
 class Ave( models.Model ):
     """Modelo de Aves."""
@@ -95,7 +111,7 @@ class Ave( models.Model ):
 
 
     def __str__( self ):
-        return self.nome_especie()
+        return self.nome_cientifico
 
     
     def nome_especie( self ):
