@@ -1,0 +1,83 @@
+{% extends 'aves/base.html' %}
+
+{% block title %}Detalhes de {{ ave.nome_cientifico }}{% endblock %}
+
+{% block main_content %}
+<article class="card">
+  <div class = "row">
+    
+    {% if ave.imagem_capa %}
+    <div class="col-md-6 p-3">
+
+      <img src="{{ ave.imagem_capa.url }}" alt="Foto de capa da ave {{ ave.nome_cientifico }}" class="card-img img-thumbnail img-fluid float-start">
+    </div>
+    {% endif %}
+    
+          
+    {% if ave.imagem_capa %}
+    <div class="col-md-6">
+    {% else %}
+    <div class="col-md-12">
+    {% endif %}
+
+    <section class="card-body">
+      
+      <h2 class="card-title">{{ ave.nome_cientifico }}</h2>
+      {% if ave.autor and ave.autor.split != '' %}
+      <h5 class="card-subtitle text-muted"><em>{{ ave.autor }}</em></h5>
+      {% endif %}
+      
+      {% if ave.nome_polular %}
+      <hr>
+
+      <h2 class="card-title">{{ ave.nome_polular }}</h2>
+      {% endif %}
+      
+
+      {% if ave.nome_ingles%}
+      <h5><strong>Nome em Inglês:</strong> {{ nome.ingles }}</h5>
+      {% endif %}
+      
+
+      <hr>
+
+      <h2 class="card-title">Classificação Ciêntifica</h2>
+
+      <div class="table-responsive">
+	<table class="table">
+
+	  <tr>
+	    <th scope="row">Ordem:</th>
+	    
+	    <td>{{ ave.ordem.nome }}</td>
+	  </tr>	
+
+	  <tr>
+	    <th scope="row">Família:</th>
+	    
+	    <td>{{ ave.ordem.familia.nome }}</td>
+	  </tr>	
+
+	  {% if False %}
+	  <tr>
+	    <th scope="row">Subfamília:</th>
+	    
+	    <td>{{ False }}</td>
+	  </tr>
+	  {% endif %}
+
+	  <tr>
+	    <th scope="row">Espécie:</th>
+	    
+	    <td>{{ ave.nome_especie }}</td>
+	  </tr>
+
+	</table>
+      </div>
+	
+    </section>
+   
+    </div>	
+    </div>
+</article>
+{% endblock %}

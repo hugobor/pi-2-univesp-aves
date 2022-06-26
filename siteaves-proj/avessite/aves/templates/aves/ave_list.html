@@ -26,8 +26,6 @@
 	  <th scope="col">Ordem</th>
 	  <th scope="col">Família</th>
 	  <th scope="col">Nome Polular</th>
-	  <th scope="col"></th>
-
 	  <th scope="col" data-orderable="false">Operações</th>
 	</tr>
       </thead>
@@ -35,12 +33,27 @@
       <tbody>
 	{% for ave in ave_list %}
 	<tr class="ave-row">
-	  <td>{{ ave.nome_cientifico }}</td>
-	  <td></td>
-	  <td></td>
-	  <td>{{ ave.nome_popular }}</td>	  
-	  <td></td>
-	  <td></td>	  
+	  <td>{{ ave.nome_cientifico | default:'&mdash;' }}</td>
+	  <td>{{ ave.ordem.nome | default:'&mdash;' }}</td>
+	  <td>{{ ave.familia.nome | default:'&mdash;'}}</td>
+	  <td>{{ ave.nome_popular | default:'&mdash;' }}</td>
+	  <td class="op-btn">
+	    
+	    
+	    <div class="btn-group">
+	      <a class="btn btn-info" role="button" alt="Detalhes" data-bs-toggle="tooltip" data-bs-original-title="Detalhes" href="{% url 'aves:ave_detail' ave.pk %}">
+		<i class="bi bi-eye"></i>		
+	      </a>
+	      <a class="btn btn-warning" role="button" alt="Editar" data-bs-toggle="tooltip" data-bs-original-title="Editar" href="{% url 'aves:ave_edit' ave.pk %}">
+		<i class="bi bi-pencil"></i>
+	      </a>
+  	      <a class="btn btn-danger rem-btn" role="button" alt="Remover" data-bs-toggle="tooltip" data-bs-original-title="Remover" href="#">
+		<i class="bi bi-trash"></i>		
+	      </a>
+	    </div>
+	    
+	  </td>
+	  
 	</tr>
 	{% endfor %}
       </tbody>
@@ -75,6 +88,13 @@
 	  },
 	  //responsive: false,
       });
+  });
+
+
+  //Tolltips
+  let tooltipTriggerList = [].slice.call( document.querySelectorAll('[data-bs-toggle="tooltip"]') );
+  let tooltipList = tooltipTriggerList.map( (tooltipTriggerEl) => {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
   });
 </script>
 

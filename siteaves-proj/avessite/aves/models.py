@@ -8,14 +8,15 @@ class Ave( models.Model ):
     nome_cientifico = models.CharField( 'nome científico',
                                         max_length = _BigCharField,
                                         unique = True )
+
     autor = models.CharField( 'nome do autor',
                               max_length = _BigCharField,
                               null = True,
                               blank = True )
     nome_popular = models.CharField( 'nome popular',
                                      max_length = _BigCharField,
-                                     blank = True,
-                                     null = True )
+                                     null = True,
+                                     blank = True )
     nome_ingles = models.CharField( 'nome em inglês',
                                     max_length = _BigCharField,
                                     blank = True,
@@ -114,8 +115,22 @@ class InfoExtra( models.Model ):
     class Meta:
         verbose_name = 'informação extra'
         verbose_name_plural = 'informações extras'
-        
 
+    def __str__( self ):
+        return f"{self.ave.nome_cientifico}: {self.titulo}"
+
+
+class FotoAve( models.Model ):
+    ave = models.ForeignKey( Ave, on_delete = models.CASCADE )
+    imagem = models.ImageField()
+    leganda = models.CharField( max_length = _BigCharField, blank = True )
+        
+    def __str__( self ):
+        return f"Foto #{self.id} de {self.ave.nome_cientifico}"
+
+    class Meta:
+        verbose_name = "foto de ave"
+        verbose_name_plural = "fotos de aves"
 
         
 class Ordem( models.Model ):

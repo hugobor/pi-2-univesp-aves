@@ -10,11 +10,55 @@ Nova Ave
 <form method="POST" class="form" enctype="multipart/form-data">
   {% csrf_token %}
 
-  {% bootstrap_form form %}
-  {% buttons %}
-  <button type="submit" class="btn btn-primary">
-    Novo
-  </button>
+  <h3 class="mb-3">Classificação</h3>
+  {% bootstrap_field form.nome_cientifico layout='horizontal' %}
+  {% bootstrap_field form.autor layout='horizontal' %}
+  {% bootstrap_field form.nome_popular layout='horizontal' %}
+  {% bootstrap_field form.nome_ingles layout='horizontal' %}
+  {% bootstrap_field form.familia layout='horizontal' %}
+
+  <hr>
+
+  <h3 class="mb-3">Estado de Conservação</h3>
+
+  {% bootstrap_field form.estado_iucn_sp layout='horizontal' %}
+  {% bootstrap_field form.estado_iucn_int layout='horizontal' %}
+
+
+  <hr>
+
+  <h3 class="mb-3">Frequências</h3>
+  {% bootstrap_field form.frequencia_ocorrencia layout='horizontal' %}
+  {% bootstrap_field form.abundancia_relativa layout='horizontal' %}
+
+  <hr>
+  <h3 class="mb-3">Informações</h3>
+  {% bootstrap_field form.info layout='horizontal' %}
+
+  <hr>
+  <h4 class="mb-3">Informações Extras</h4>
+  {% bootstrap_formset infoextra_inline layout='horizontal' %}  
+
+  <hr>
+  <h3 class="mb-3">Mídia</h3>  
+  {% bootstrap_field form.imagem_capa layout='horizontal' %}
+
+  <hr>
+  <h4 class="mb-3">Mais Imagens</h4>    
+  {% bootstrap_formset fotoave_inline layout='horizontal' %}
+  
+  <hr>
+
+  <div class="d-flex justify-content-end">
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% if object %}
+      Atualizar <i class="bi bi-file-earmark-arrow-down"></i>
+      {% else %}
+      Salvar <i class="bi bi-file-earmark-plus"></i>
+      {% endif %}
+    </button>
   {% endbuttons %}
+  </div>
 </form>
 {% endblock %}
