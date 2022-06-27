@@ -1,83 +1,222 @@
 {% extends 'aves/base.html' %}
 
+{% load static %}
+
 {% block title %}Detalhes de {{ ave.nome_cientifico }}{% endblock %}
 
 {% block main_content %}
-<article class="card">
-  <div class = "row">
-    
-    {% if ave.imagem_capa %}
-    <div class="col-md-6 p-3">
-
-      <img src="{{ ave.imagem_capa.url }}" alt="Foto de capa da ave {{ ave.nome_cientifico }}" class="card-img img-thumbnail img-fluid float-start">
-    </div>
-    {% endif %}
-    
-          
-    {% if ave.imagem_capa %}
-    <div class="col-md-6">
-    {% else %}
-    <div class="col-md-12">
-    {% endif %}
-
-    <section class="card-body">
+<article>
+  <section class="card">
+    <div class = "row">
       
-      <h2 class="card-title">{{ ave.nome_cientifico }}</h2>
-      {% if ave.autor and ave.autor.split != '' %}
-      <h5 class="card-subtitle text-muted"><em>{{ ave.autor }}</em></h5>
+      {% if ave.imagem_capa %}
+      <div class="col-md-6 p-3">
+
+	<img src="{{ ave.imagem_capa.url }}" alt="Foto de capa da ave {{ ave.nome_cientifico }}" class="card-img img-thumbnail img-fluid float-start">
+      </div>
       {% endif %}
       
-      {% if ave.nome_polular %}
-      <hr>
-
-      <h2 class="card-title">{{ ave.nome_polular }}</h2>
-      {% endif %}
       
-
-      {% if ave.nome_ingles%}
-      <h5><strong>Nome em Inglês:</strong> {{ nome.ingles }}</h5>
-      {% endif %}
-      
-
-      <hr>
-
-      <h2 class="card-title">Classificação Ciêntifica</h2>
-
-      <div class="table-responsive">
-	<table class="table">
-
-	  <tr>
-	    <th scope="row">Ordem:</th>
-	    
-	    <td>{{ ave.ordem.nome }}</td>
-	  </tr>	
-
-	  <tr>
-	    <th scope="row">Família:</th>
-	    
-	    <td>{{ ave.ordem.familia.nome }}</td>
-	  </tr>	
-
-	  {% if False %}
-	  <tr>
-	    <th scope="row">Subfamília:</th>
-	    
-	    <td>{{ False }}</td>
-	  </tr>
+      {% if ave.imagem_capa %}
+      <div class="col-md-6">
+	{% else %}
+	<div class="col-md-12">
 	  {% endif %}
 
-	  <tr>
-	    <th scope="row">Espécie:</th>
+	  <section class="card-body">
 	    
-	    <td>{{ ave.nome_especie }}</td>
-	  </tr>
+	    <h2 class="card-title">{{ ave.nome_cientifico }}</h2>
+	    {% if ave.autor and ave.autor.split != '' %}
+	    <h5 class="card-subtitle text-muted"><em>{{ ave.autor }}</em></h5>
+	    {% endif %}
+	    
+	    {% if ave.nome_polular %}
+	    <hr>
 
-	</table>
+	    <h2 class="card-title">{{ ave.nome_polular }}</h2>
+	    {% endif %}
+	    
+
+	    {% if ave.nome_ingles%}
+	    <h5><strong>Nome em Inglês:</strong> {{ nome.ingles }}</h5>
+	    {% endif %}
+	    
+
+	    <hr>
+
+	    <h2 class="card-title">Classificação Ciêntifica</h2>
+
+	    <div class="table-responsive">
+	      <table class="table">
+
+		{% with classi=ave.familia.ordem.classifiextra %}
+		{% if classi %}
+		<tr>
+		  <th scope="row">Reino:</th>
+		  
+		  <td>{{ classi.reino | default:'&mdash;' }}</td>
+		</tr>
+
+		<tr>
+		  <th scope="row">Filo:</th>
+		  
+		  <td>{{ classi.filo | default:'&mdash;' }}</td>
+		</tr>	
+		
+		<tr>
+		  <th scope="row">Classe:</th>
+		  
+		  <td>{{ classi.classe | default:'&mdash;' }}</td>
+		</tr>	
+		
+		{% endif %}
+		{% endwith %}
+
+		<tr>
+		  <th scope="row">Ordem:</th>
+		  
+		  <td>{{ ave.familia.ordem.nome | default:'&mdash;' }}</td>
+		</tr>	
+
+		<tr>
+		  <th scope="row">Família:</th>
+		  
+		  <td>
+		    {{ ave.familia.nome }}
+		    {% if ave.familia.autor %}
+		    <br>
+		    <p class="text-muted">({{ ave.familia.autor }})</p>
+		    {% endif %}
+		  </td>
+
+		  
+		</tr>	
+
+		{% if False %}
+		<tr>
+		  <th scope="row">Subfamília:</th>
+		  
+		  <td>{{ False }}</td>
+		</tr>
+		{% endif %}
+
+		<tr>
+		  <th scope="row">Espécie:</th>
+		  
+		  <td>{{ ave.nome_especie }}
+		    {% if ave.autor %}
+		    <br>
+		    <p class="text-muted">({{ ave.autor }})</p>
+		    {% endif %}
+		  </td>
+		</tr>
+
+	      </table>
+
+
+	    </div>
+	    
+	  </section>
+	  
+	</div>	
       </div>
-	
-    </section>
-   
-    </div>	
+  </section>
+
+  {% if ave.info %}
+  <section class="card my-3">
+    <div class="card-body">
+
+	<h2 class="card-title">Informações Gerais</h2>
+	<p class="cad-text">
+	  {{ ave.info | linebreaks }}
+	</p>
+
+
     </div>
+
+  </section>
+  {% endif %}
+
+  <section class="row">
+  {% if ave.estado_iucn_int %}
+  <article class="my-3 p-3 col-lg-6">
+    <div class="card-body">
+      <h2 class="card-title">Estado de Conservação Internacional</h2>
+
+      <figure class="figure">
+	<img class="figure-img img-fluid mw-50 mh-50" src="{% static ave.pick_iucn_int_img %}" alt="Imagem do estado de conservação {{ ave.get_estado_iucn_int_display }}">
+	<figcaption class="figure-caption">{{ ave.get_estado_iucn_int_display }}</figcaption>
+      </figure>
+      
+    </div>
+
+  </article>
+  {% endif %}
+
+
+  {% if ave.estado_iucn_sp %}
+  <article class="my-3 p-3 col-lg-6">
+    <div class="card-body">
+      <h2 class="card-title">Estado de Conservação em São Paulo</h2>
+
+      <figure class="figure">
+	<img class="figure-img img-fluid mw-50 mh-50" src="{% static ave.pick_iucn_sp_img %}" alt="Imagem do estado de conservação {{ ave.get_estado_iucn_sp_display }}">
+	<figcaption class="figure-caption">{{ ave.get_estado_iucn_sp_display }}</figcaption>
+      </figure>
+      
+    </div>
+
+  </article>
+  {% endif %}
+
+</section>  
+
+  {% with infos=ave.infoextra_set.all %}
+  {% for info in infos %}
+  <section class="card my-3">
+    <div class="card-body">
+
+	<h2 class="card-title">{{ info.titulo }}</h2>
+	<p class="cad-text">
+	  {{ info.texto | linebreaks }}
+	</p>
+
+
+    </div>
+
+  </section>  
+  {% endfor %}
+  {% endwith %}
+
+  {% with fotos=ave.fotoave_set.all %}
+  <div class="card border my-3">
+    <div class="col-md-12 m-3">
+      <h2>Imagens</h2>
+      {% for foto in fotos %}
+      <div class="text-center my-3">
+	<figure class="figure">
+	  <img src="{{ foto.imagem.url }}" alt="{{ foto }}" class="figure-img img-fluid">
+	  <figcaption class="figure-caption">{{ foto.legenda }}</figcaption>
+	</figure>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endwith %}
+
+
+  
+  <section class="d-flex flex-row-reverse">
+    <div class="btn-group">
+      <a class="btn btn-warning" role="button" alt="Editar" data-bs-toggle="tooltip" data-bs-original-title="Editar" href="{% url 'aves:ave_edit' ave.pk %}">
+	Editar <i class="bi bi-pencil"></i>
+      </a>
+      <a class="btn btn-danger rem-btn" data-ave-nome="Dendrocygna bicolor" role="button" alt="Remover" data-bs-toggle="tooltip" data-bs-original-title="Remover" href="{% url 'aves:ave_delete' ave.pk %}">
+	Remover <i class="bi bi-trash"></i>		
+      </a>
+    </div>  
+  </section>
+
 </article>
+
 {% endblock %}

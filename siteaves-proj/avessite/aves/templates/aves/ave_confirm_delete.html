@@ -1,0 +1,19 @@
+{% extends 'aves/base.html' %}
+
+{% block title %}Confirmar Exclusão{% endblock %}
+
+{% block main_content %}
+<section class="card">
+  <div class="card-body">
+    <h5 class="card-title">Confirmar Exclusão</h5>
+    <p class="card-text">Você confirma e exclusão da ave "{{ object }}"?</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="btn-group">
+	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="history.back()">Cancelar <i class="bi bi-arrow-90deg-left"></i></button>
+	<button type="submit" class="btn btn-danger">Remover <i class="bi bi-trash"></i></button>
+	</div>
+    </form>    
+  </div>  
+</section>
+{% endblock %}

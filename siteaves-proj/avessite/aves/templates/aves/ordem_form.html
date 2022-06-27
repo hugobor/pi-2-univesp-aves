@@ -1,0 +1,36 @@
+{% extends 'aves/base.html' %}
+
+{% load bootstrap5 %}
+
+{% block title %}
+Nova Ave
+{% endblock %}
+
+{% block main_content %}
+<form method="POST" class="form" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <h3 class="mb-3">Ordem</h3>
+  {% bootstrap_form form layout='horizontal' %}
+
+  <hr>
+
+  <h3 class="mb-3">Famílias</h3>
+  {% bootstrap_formset familia_inline layout='horizontal' %}  
+
+  <div class="d-flex justify-content-end">
+    {% buttons %}
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="history.back()">Cancelar <i class="bi bi-arrow-90deg-left"></i></button>    
+      <button type="submit" class="btn btn-primary">
+	{% if object %}
+	Atualizar <i class="bi bi-file-earmark-arrow-down"></i>
+	{% else %}
+	Salvar <i class="bi bi-file-earmark-plus"></i>
+	{% endif %}
+      </button>
+    </div>
+  {% endbuttons %}
+  </div>
+</form>
+{% endblock %}

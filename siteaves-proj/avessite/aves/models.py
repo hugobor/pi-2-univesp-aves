@@ -6,6 +6,7 @@ from django.dispatch import receiver
 
 _BigCharField = 2048 #para não ter que configurar o tamanho de tudo
 
+
 def pick_val_in_choice( choice_tpl, choice_val ):
     """Gambiara para pegar valor em lista de tupla de choice."""
     choice_val = choice_val.strip().casefold()
@@ -15,6 +16,7 @@ def pick_val_in_choice( choice_tpl, choice_val ):
 
     return None
 
+
 def choice_from_display_name( choice_tpl, search_display ):
     """Gambiarra para pegar as escolhas pelo nome de display"""
     search_display = search_display.strip().casefold()
@@ -22,6 +24,7 @@ def choice_from_display_name( choice_tpl, search_display ):
             for choice, display_name
             in choice_tpl ]
     return pick_val_in_choice( rev, search_display )
+
 
 class Ave( models.Model ):
     """Modelo de Aves."""
@@ -70,28 +73,36 @@ class Ave( models.Model ):
     )
 
     ESTADOS_CONSERVACAO_EN = (
-        ( 'LC', 'Least Concern', 'aves/static/iucn/LC.png' ),
-        ( 'NT', 'Near Threatened', 'aves/static/iucn/NT.png' ),
-        ( 'VU', 'Vulnerable', 'aves/static/iucn/VU.png' ),
-        ( 'EN', 'Endangered', 'aves/static/iucn/EN.png' ),
-        ( 'CR', 'Critically Endangered', 'aves/static/iucn/CR.png' ),
-        ( 'EW', 'Extinct in The Wild', 'aves/static/iucn/EW.png' ),
-        ( 'EX', 'Extinct', 'aves/static/iucn/EX.png' ),
-        ( 'DD', 'Data Deficient', 'aves/static/iucn/DD.png' ),
-        ( 'NE', 'Not Evaluated', 'aves/static/iucn/NE.png' ),
+        ( 'LC', 'Least Concern' ),
+        ( 'NT', 'Near Threatened' ),
+        ( 'VU', 'Vulnerable' ),
+        ( 'EN', 'Endangered' ),
+        ( 'CR', 'Critically Endangered' ),
+        ( 'EW', 'Extinct in The Wild' ),
+        ( 'EX', 'Extinct' ),
+        ( 'DD', 'Data Deficient' ),
+        ( 'NE', 'Not Evaluated' ),
     )
 
     ESTADOS_CONSERVACAO_IMG = (
         ( 'LC', 'aves/iucn/LC.png' ),
         ( 'NT', 'aves/iucn/NT.png' ),
         ( 'VU', 'aves/iucn/VU.png' ),
-        ( 'EN', 'aves/EN.png' ),
+        ( 'EN', 'aves/iucn/EN.png' ),
         ( 'CR', 'aves/iucn/CR.png' ),
         ( 'EW', 'aves/iucn/EW.png' ),
         ( 'EX', 'aves/iucn/EX.png' ),
         ( 'DD', 'aves/iucn/DD.png' ),
         ( 'NE', 'aves/iucn/NE.png' ),
-    )
+    )    
+
+    def pick_iucn_sp_img( self ):
+        """Pega o caminho para a imagem do estado de conservação..."""
+        return pick_val_in_choice( self.ESTADOS_CONSERVACAO_IMG, self.estado_iucn_sp )
+
+    def pick_iucn_int_img( self ):
+        """Pega o caminho para a imagem do estado de conservação..."""
+        return pick_val_in_choice( self.ESTADOS_CONSERVACAO_IMG, self.estado_iucn_int )
 
     estado_iucn_sp = models.CharField( 'estado de conservação em São Paulo',
                                        max_length = 2,
@@ -195,6 +206,14 @@ class ClassifiExtra( models.Model ):
         
         return f"Classe: {nod(self.classe)}; Filo: {nod(self.filo)}; Reino: {nod(self.reino)}"
 
+    def familia_count( self ):
+        """Conta quantidade total de famílias nas ordens."""
+        s = 0
+        for ordem in self.ordem_set.all():
+            s += ordem.familia_set.count()
+        return s
+    
+
         
 class Ordem( models.Model ):
     classifiextra = models.ForeignKey( ClassifiExtra,
@@ -211,6 +230,7 @@ class Ordem( models.Model ):
 
     def __str__( self ):
         return self.nome.title()
+
 
 
 class Familia( models.Model ):
