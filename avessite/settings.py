@@ -34,7 +34,8 @@ DEBUG = ( env( 'DEBUG' ) == 'TRUE' )
 ALLOWED_HOSTS = [ 'avesarmazenamento.blob.core.windows.net',
                   'pi-univesp-aves.azurewebsites.net',
                   'avesarmazenamento.blob.core.windows.net',
-		  'https://pi-aves.herokuapp.com/', ]
+		          'https://pi-aves.herokuapp.com/',
+		          'pi-aves.herokuapp.com', ]
 
 
 # Application definition
