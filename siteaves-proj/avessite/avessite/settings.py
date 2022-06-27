@@ -31,7 +31,9 @@ SECRET_KEY = env( 'SECRET_KEY' )
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ( env( 'DEBUG' ) == 'TRUE' )
 
-ALLOWED_HOSTS = [ ]
+ALLOWED_HOSTS = [ 'avesarmazenamento.blob.core.windows.net',
+                  'pi-univesp-aves.azurewebsites.net',
+                  'avesarmazenamento.blob.core.windows.net',]
 
 
 # Application definition
