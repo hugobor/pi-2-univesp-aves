@@ -128,7 +128,7 @@ class Ave( models.Model ):
     def nome_especie( self ):
         """Retorna o nome 'Subfamília Espécie' como 'S. espécie'.
         Se tiver menos de duas palavras no nome retorna o nome como title"""
-        spli = self.nome_cientifico.lower().split()
+        spli = self.nome_cientifico.lower().strip().split()
         if len( spli ) < 2:
             return self.nome_cientifico.strip().title()
         else:
@@ -136,16 +136,29 @@ class Ave( models.Model ):
             return ' '.join( spli )
 
     
+    def subfamilia( self ):
+        """Separa subfamilia do nome científico."""
+        spli = self.nome_cientifico.strip().lower().split()
+        if len( spli ) < 2:
+            return ''
+        else:
+            return spli[ 0 ].title()
+    
 
     class Meta:
         ordering = [ 'nome_cientifico' ]
 
 
 
+        
 @receiver( pre_save, sender = Ave )
-def create_ave( sender, instance, *args, **kwargs ):
+def create_pre_save( sender, instance, *args, **kwargs ):
     """Arruma os campos antes de salvar."""
     instance.nome_cientifico = instance.nome_cientifico.capitalize()
+#   if instance.nome_popular:
+#       instance.nome_popular = instance.nome_popular.capitalize()
+    if instance.autor:
+        instance.autor = instance.autor.replace( '(', '' ).replace( ')', '' ).strip().capitalize()
 
 
     
@@ -182,7 +195,6 @@ class FotoAve( models.Model ):
         verbose_name = "foto de ave"
         verbose_name_plural = "fotos de aves"
 
-        
 
 class ClassifiExtra( models.Model ):
     """Campos extras para classificação de taxonomia."""
@@ -231,6 +243,8 @@ class Ordem( models.Model ):
     def __str__( self ):
         return self.nome.title()
 
+    
+
 
 
 class Familia( models.Model ):
@@ -247,5 +261,18 @@ class Familia( models.Model ):
         return self.nome.title()
     
    
+@receiver( pre_save, sender = Ordem )
+def ordem_pre_save( sender, instance, *args, **kwargs ):
+    """Arruma ordem."""
+    instance.nome = instance.nome.title()
+    
+
+@receiver( pre_save, sender = Familia )
+def familia_pre_save( sender, instance, *args, **kwargs ):
+    """Arruma o ."""
+    instance.nome = instance.nome.title()
+
+
+        
 
                                       

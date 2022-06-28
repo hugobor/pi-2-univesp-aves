@@ -92,13 +92,11 @@
 		  
 		</tr>	
 
-		{% if False %}
 		<tr>
 		  <th scope="row">Subfamília:</th>
 		  
-		  <td>{{ False }}</td>
+		  <td>{{ ave.subfamilia | default:'&mdash;' }}</td>
 		</tr>
-		{% endif %}
 
 		<tr>
 		  <th scope="row">Espécie:</th>

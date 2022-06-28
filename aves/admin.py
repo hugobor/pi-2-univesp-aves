@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Ave, Ordem, Familia, InfoExtra, FotoAve
+from .models import Ave, Ordem, Familia, InfoExtra, FotoAve, ClassifiExtra
 
 # Register your models here.
 
@@ -24,4 +24,5 @@ class OrdemAdmin( admin.ModelAdmin ):
     
 admin.site.register( Ordem, OrdemAdmin )
 admin.site.register( Familia )
+admin.site.register( ClassifiExtra )
 
