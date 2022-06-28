@@ -2,7 +2,7 @@ Django
 django-bootstrap-v5
 django-environ
 django-extensions
-django-extra-views
+django-extra-views==0.14.0
 django-storages[azure]
 gunicorn
 Pillow
