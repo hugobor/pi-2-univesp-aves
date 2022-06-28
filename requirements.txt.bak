@@ -1,0 +1,9 @@
+Django>=4.0
+django-extensions
+django-extra-views
+django-environ
+django-bootstrap-v5
+psycopg2
+Pillow
+django-storages[azure]
+gunicorn
