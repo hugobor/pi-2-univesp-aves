@@ -31,13 +31,20 @@ SECRET_KEY = env( 'SECRET_KEY' )
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ( env( 'DEBUG' ) == 'TRUE' )
 
-ALLOWED_HOSTS = [ 'avesarmazenamento.blob.core.windows.net',
-                  'pi-univesp-aves.azurewebsites.net',
-                  'avesarmazenamento.blob.core.windows.net',
-		  'https://pi-aves.herokuapp.com/',
-		  'pi-aves.herokuapp.com',
-                  'localhost',
-                  'testserver', ]
+ALLOWED_HOSTS = [ 
+	'avesarmazenamento.blob.core.windows.net',
+        'pi-univesp-aves.azurewebsites.net',
+        'avesarmazenamento.blob.core.windows.net',
+	'https://pi-aves.herokuapp.com/',
+	'pi-aves.herokuapp.com',
+        'localhost',
+        'testserver', 
+]
+
+CSRF_TRUSTED_ORIGINS = [
+	'https://pi-univesp-aves.azurewebsites.net',
+]
+			
 
 
 # Application definition
