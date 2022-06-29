@@ -278,7 +278,7 @@ class Ordem( models.Model ):
 
 
 class Familia( models.Model ):
-    ordem = models.ForeignKey( Ordem, on_delete = models.SET_NULL, null = True, blank = True )
+    ordem = models.ForeignKey( Ordem, on_delete = models.CASCADE )
     
     nome = models.CharField( max_length = _BigCharField, unique = True )
     autor = models.CharField( max_length = _BigCharField, null = True, blank = True )
