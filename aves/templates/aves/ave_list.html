@@ -20,46 +20,48 @@
 {% block main_content %}
 <div class="row pb-3">
   <section class="col">
-    <table id="aves-list" class="table table-hover">
+    <div class="table-responsive-md">
+      <table id="aves-list" class="table table-hover table-md">
 
-      <thead>
-	<tr>
-	  <th scope="col">Espécie</th>
-	  <th scope="col">Ordem</th>
-	  <th scope="col">Família</th>
-	  <th scope="col">Nome Polular</th>
-	  <th scope="col" data-orderable="false">Operações</th>
-	</tr>
-      </thead>
+	<thead>
+	  <tr>
+	    <th scope="col">Espécie</th>
+	    <th scope="col">Ordem</th>
+	    <th scope="col">Família</th>
+	    <th scope="col">Nome Polular</th>
+	    <th scope="col" data-orderable="false">Operações</th>
+	  </tr>
+	</thead>
 
-      <tbody>
-	{% for ave in ave_list %}
-	<tr class="ave-row">
-	  <td>{{ ave.nome_cientifico | default:'&mdash;' }}</td>
-	  <td>{{ ave.familia.ordem.nome | default:'&mdash;' }}</td>
-	  <td>{{ ave.familia.nome | default:'&mdash;'}}</td>
-	  <td>{{ ave.nome_popular | default:'&mdash;' }}</td>
-	  <td class="op-btn">
+	<tbody>
+	  {% for ave in ave_list %}
+	  <tr class="ave-row">
+	    <td>{{ ave.nome_cientifico | default:'&mdash;' }}</td>
+	    <td>{{ ave.familia.ordem.nome | default:'&mdash;' }}</td>
+	    <td>{{ ave.familia.nome | default:'&mdash;'}}</td>
+	    <td>{{ ave.nome_popular | default:'&mdash;' }}</td>
+	    <td class="op-btn">
+	      
+	      <div class="btn-group">
+		<a class="btn btn-info" role="button" alt="Detalhes" aria-label="Detalhes" data-bs-toggle="tooltip" data-bs-original-title="Detalhes" href="{% url 'aves:ave_detail' ave.pk %}">
+		  <img src="{% static 'aves/icons/eye.svg' %}" alt="Detalhes">
+		</a>
+		<a class="btn btn-warning" role="button" aria-label="Editar" alt="Editar" data-bs-toggle="tooltip" data-bs-original-title="Editar" href="{% url 'aves:ave_edit' ave.pk %}">
+		  <img src="{% static 'aves/icons/pencil.svg' %}" alt="Editar">
+		</a>
+  		<a class="btn btn-danger rem-btn" role="button" aria-label="Remover" alt="Remover" data-bs-toggle="tooltip" data-bs-original-title="Remover" href="{% url 'aves:ave_delete' ave.pk %}">
+		  <img src="{% static 'aves/icons/trash.svg' %}" alt="Remover">
+		</a>
+	      </div>
+	      
+	    </td>
 	    
-	    <div class="btn-group">
-	      <a class="btn btn-info" role="button" alt="Detalhes" aria-label="Detalhes" data-bs-toggle="tooltip" data-bs-original-title="Detalhes" href="{% url 'aves:ave_detail' ave.pk %}">
-		<img src="{% static 'aves/icons/eye.svg' %}" alt="Detalhes">
-	      </a>
-	      <a class="btn btn-warning" role="button" aria-label="Editar" alt="Editar" data-bs-toggle="tooltip" data-bs-original-title="Editar" href="{% url 'aves:ave_edit' ave.pk %}">
-		<img src="{% static 'aves/icons/pencil.svg' %}" alt="Editar">
-	      </a>
-  	      <a class="btn btn-danger rem-btn" role="button" aria-label="Remover" alt="Remover" data-bs-toggle="tooltip" data-bs-original-title="Remover" href="{% url 'aves:ave_delete' ave.pk %}">
-		<img src="{% static 'aves/icons/trash.svg' %}" alt="Remover">
-	      </a>
-	    </div>
-	    
-	  </td>
-	  
-	</tr>
-	{% endfor %}
-      </tbody>
-      
-    </table>
+	  </tr>
+	  {% endfor %}
+	</tbody>
+	
+      </table>
+    </div>
   </section>
 </div>
 {% endblock %}
@@ -87,7 +89,7 @@
 	      //https://datatables.net/plug-ins/i18n/Portuguese-Brasil.html
 	      url: 'https://cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json',
 	  },
-	  //responsive: false,
+	  responsive: true,
       });
   });
 

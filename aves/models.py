@@ -2,6 +2,7 @@ from django.db import models
 
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from django.urls import reverse
 
 
 _BigCharField = 2048 #para não ter que configurar o tamanho de tudo
@@ -33,14 +34,24 @@ class Ave( models.Model ):
                                         max_length = _BigCharField,
                                         unique = True )
 
+    def clean_nome_cientifico( self ):
+        return self.cleaned_data[ 'nome_cientifico' ].strip().capitalize()
+
     autor = models.CharField( 'nome do autor',
                               max_length = _BigCharField,
                               null = True,
                               blank = True )
+    def clean_autor( self ):
+        return self.cleaned_data[ 'autor' ].strip().replace( '(', '' ).replace( ')', '' ).capitalize()
+    
     nome_popular = models.CharField( 'nome popular',
                                      max_length = _BigCharField,
                                      null = True,
                                      blank = True )
+
+    def clean_nome_popular( self ):
+        return self.cleaned_data[ 'nome_popular' ].strip().capitalize()
+
     nome_ingles = models.CharField( 'nome em inglês',
                                     max_length = _BigCharField,
                                     blank = True,
@@ -145,20 +156,23 @@ class Ave( models.Model ):
             return spli[ 0 ].title()
     
 
+    def get_absolute_url( self ):
+        return reverse( 'aves:ave_detail', args = [ self.pk ])
+    
     class Meta:
         ordering = [ 'nome_cientifico' ]
 
 
 
         
-@receiver( pre_save, sender = Ave )
-def create_pre_save( sender, instance, *args, **kwargs ):
-    """Arruma os campos antes de salvar."""
-    instance.nome_cientifico = instance.nome_cientifico.capitalize()
-#   if instance.nome_popular:
-#       instance.nome_popular = instance.nome_popular.capitalize()
-    if instance.autor:
-        instance.autor = instance.autor.replace( '(', '' ).replace( ')', '' ).strip().capitalize()
+# @receiver( pre_save, sender = Ave )
+# def create_pre_save( sender, instance, *args, **kwargs ):
+#     """Arruma os campos antes de salvar."""
+#     instance.nome_cientifico = instance.nome_cientifico.capitalize()
+# #   if instance.nome_popular:
+# #       instance.nome_popular = instance.nome_popular.capitalize()
+#     if instance.autor:
+#         instance.autor = instance.autor.replace( '(', '' ).replace( ')', '' ).strip().capitalize()
 
 
     
@@ -224,6 +238,13 @@ class ClassifiExtra( models.Model ):
         for ordem in self.ordem_set.all():
             s += ordem.familia_set.count()
         return s
+
+    def aves_count( self ):
+        """Conta quantidade total de avess dentro desta classificação."""
+        s = 0
+        for ordem in self.ordem_set.all():
+            s += ordem.quantidade_aves()
+        return s
     
 
         
@@ -243,12 +264,21 @@ class Ordem( models.Model ):
     def __str__( self ):
         return self.nome.title()
 
+    def quantidade_aves( self ):
+        """Quantidade de aves em todas as famílias pertencentes a esta ordem."""
+        s = 0
+        for fam in self.familia_set.all():
+            s += fam.ave_set.count()
+
+        return s
+        
+
     
 
 
 
 class Familia( models.Model ):
-    ordem = models.ForeignKey( Ordem, on_delete = models.CASCADE )
+    ordem = models.ForeignKey( Ordem, on_delete = models.SET_NULL, null = True, blank = True )
     
     nome = models.CharField( max_length = _BigCharField, unique = True )
     autor = models.CharField( max_length = _BigCharField, null = True, blank = True )
@@ -261,16 +291,16 @@ class Familia( models.Model ):
         return self.nome.title()
     
    
-@receiver( pre_save, sender = Ordem )
-def ordem_pre_save( sender, instance, *args, **kwargs ):
-    """Arruma ordem."""
-    instance.nome = instance.nome.title()
+# @receiver( pre_save, sender = Ordem )
+# def ordem_pre_save( sender, instance, *args, **kwargs ):
+#     """Arruma ordem."""
+#     instance.nome = instance.nome.title()
     
 
-@receiver( pre_save, sender = Familia )
-def familia_pre_save( sender, instance, *args, **kwargs ):
-    """Arruma o ."""
-    instance.nome = instance.nome.title()
+# @receiver( pre_save, sender = Familia )
+# def familia_pre_save( sender, instance, *args, **kwargs ):
+#     """Arruma o ."""
+#     instance.nome = instance.nome.title()
 
 
         

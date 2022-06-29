@@ -32,7 +32,7 @@ class AveDetailView( AveView, DetailView ):
 
 class AveDeleteView( SuccessMessageMixin, AveView, DeleteView ):
     #template='ave/ave_confirm_delete.html'
-    success_url = reverse_lazy( 'aves:ave_detail' )
+    success_url = reverse_lazy( 'aves:ave_list' )
 
     def get_success_message( self, cleaned_data ):
         """Gambiarra para retornar mensagem de sucesso com o objeto já exclúido."""
@@ -52,7 +52,8 @@ class FotoAveInline( InlineFormSetFactory ):
 class AveCreateView( NamedFormsetsMixin, SuccessMessageMixin, AveView, CreateWithInlinesView ):
     #template='ave/ave_form.html'
     success_message = "Ave \"%(nome_cientifico)s\" foi inclúida com sucesso!"
-    success_url = reverse_lazy( 'aves:ave_list' )
+    #success_url = reverse_lazy( 'aves:ave_list' )
+    #success_url = reverse( 'aves:ave_detail' ...
     fields = (
         'nome_cientifico',
         'autor',
@@ -75,7 +76,8 @@ class AveCreateView( NamedFormsetsMixin, SuccessMessageMixin, AveView, CreateWit
 class AveEditView( NamedFormsetsMixin, SuccessMessageMixin, AveView, UpdateWithInlinesView ):
     #template='ave/ave_form.html'
     success_message = "Ave \"%(nome_cientifico)s\" foi editada com sucesso!"
-    success_url = reverse_lazy( 'aves:ave_list' )
+    #success_url = reverse_lazy( 'aves:ave_list' )
+    #success_url = reverse( 'aves:ave_detail' ...    
     fields = (
         'nome_cientifico',
         'autor',
@@ -123,7 +125,7 @@ class OrdemCreateView( NamedFormsetsMixin, SuccessMessageMixin, OrdemView, Creat
 
 class OrdemEditView( NamedFormsetsMixin, SuccessMessageMixin, OrdemView, UpdateWithInlinesView ):
     success_message = "Ordem \"%(nome)s\" foi editada com sucesso!"
-    success_url = reverse_lazy( 'aves:ordem_edit' )
+    success_url = reverse_lazy( 'aves:ordem_list' )
     fields = '__all__'
     inlines = [ FamiliaInLine ]
     inlines_names = [ 'familia_inline' ]    

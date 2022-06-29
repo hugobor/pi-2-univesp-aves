@@ -21,39 +21,43 @@
 {% block main_content %}
 <div class="row pb-3">
   <section class="col">
-    <table id="aves-list" class="table table-hover">
+    <div class="table-responsive-md">
+      <table id="aves-list" class="table table-hover">
 
-      <thead>
-	<tr>
-	  <th scope="col">Nome</th>
-	  <th scope="col">Quantidade de Famílias</th>
-	  <th scope="col" data-orderable="false">Operações</th>
-	</tr>
-      </thead>
+	<thead>
+	  <tr>
+	    <th scope="col">Nome</th>
+	    <th scope="col">Quantidade de Famílias</th>
+	    <th scope="col">Quantidade de Aves</th>
+	    <th scope="col" data-orderable="false">Operações</th>
+	  </tr>
+	</thead>
 
-      <tbody>
-	{% for ordem in ordem_list %}
-	<tr class="ave-row">
-	  <td>{{ ordem.nome | default:'&mdash;' }}</td>
-	  <td>{{ ordem.familia_set.all.count | default:'&mdash;' }}</td>
-	  <td class="op-btn">
+	<tbody>
+	  {% for ordem in ordem_list %}
+	  <tr class="ave-row">
+	    <td>{{ ordem.nome | default:'&mdash;' }}</td>
+	    <td>{{ ordem.familia_set.all.count | default:'&mdash;' }}</td>
+	    <td>{{ ordem.quantidade_aves | default:'&mdash;' }}</td>
+	    <td class="op-btn">
+	      
+	      <div class="btn-group">
+		<a class="btn btn-warning" role="button" aria-label="Editar" alt="Editar" data-bs-toggle="tooltip" data-bs-original-title="Editar" href="{% url 'aves:ordem_edit' ordem.pk %}">
+		  <img src="{% static 'aves/icons/pencil.svg' %}" alt="Editar">
+		</a>
+  		<a class="btn btn-danger rem-btn" role="button" aria-label="Remover" alt="Remover" data-bs-toggle="tooltip" data-bs-original-title="Remover" href="{% url 'aves:ordem_delete' ordem.pk %}">
+		  <img src="{% static 'aves/icons/trash.svg' %}" alt="Remover">
+		</a>
+	      </div>
+	      
+	    </td>
 	    
-	    <div class="btn-group">
-	      <a class="btn btn-warning" role="button" aria-label="Editar" alt="Editar" data-bs-toggle="tooltip" data-bs-original-title="Editar" href="{% url 'aves:ordem_edit' ordem.pk %}">
-		<img src="{% static 'aves/icons/pencil.svg' %}" alt="Editar">
-	      </a>
-  	      <a class="btn btn-danger rem-btn" role="button" aria-label="Remover" alt="Remover" data-bs-toggle="tooltip" data-bs-original-title="Remover" href="{% url 'aves:ordem_delete' ordem.pk %}">
-		<img src="{% static 'aves/icons/trash.svg' %}" alt="Remover">
-	      </a>
-	    </div>
-	    
-	  </td>
-	  
-	</tr>
-	{% endfor %}
-      </tbody>
-      
-    </table>
+	  </tr>
+	  {% endfor %}
+	</tbody>
+	
+      </table>
+    </div>
   </section>
 </div>
 {% endblock %}
